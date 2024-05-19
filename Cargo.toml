@@ -1,5 +1,5 @@
 [workspace]
-members = ["diwan_cli", "diwan_lib"]
+members = ["diwan-cli", "diwan-lib", "diwan-core"]
 resolver = "2"
 
 [profile.dev]
@@ -9,8 +9,8 @@ opt-level = 3
 
 [workspace.package]
 description = "Diwan is a minimal rust text editor like vim :) "
-version = "0.0.1"
+version = "0.1.0"
 edition = "2021"
-authors = ["Abdogouhmad"]
+authors = ["Abdogouhmad <gouhmad@gmail.com>"]
 readme = "README.md"
 repository = "https://github.com/Abdogouhmad/Diwan"
