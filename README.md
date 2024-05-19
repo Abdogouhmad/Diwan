@@ -4,6 +4,8 @@
 
 [![GitHub Release](https://img.shields.io/github/v/release/Abdogouhmad/Diwan)](https://github.com/Abdogouhmad/Diwan/releases/latest)
 [![GitHub contributors](https://img.shields.io/github/contributors/Abdogouhmad/Diwan)](https://github.com/Abdogouhmad/Diwan/graphs/contributors)
+![GitHub top language](https://img.shields.io/github/languages/top/Abdogouhmad/Diwan?style=flat&logo=rust&logoSize=auto&color=%23b7410e)
+![GitHub last commit (branch)](https://img.shields.io/github/last-commit/Abdogouhmad/Diwan/main?style=flat&logo=github)
 
 </div>
 
