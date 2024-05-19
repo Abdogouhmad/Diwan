@@ -11,16 +11,19 @@
 
 # What is Diwan?
 
-The name <strong>"Diwan"</strong> comes from the Arabic language and has deep-rooted cultural significance in the Arab and Islamic world. In its literary context, a "diwan" (dee-waan) refers to an anthology or collection of writings, poems, and literary works by a single author.
+The name <strong>"Diwan"</strong> comes from the Arabic language and has deep-rooted
+cultural significance in the Arab and Islamic world. In its literary context, a "diwan"
+(dee-waan) refers to an anthology or collection of writings, poems, and literary works by a single author.
 
 # Tasks
 
 - [ ] Step the folder structure
-  - [ ] create a bin folder
-  - [ ] create a lib folder
-- [ ] Create a README.md file
-- [ ] Create a .gitignore file
-- [ ] Create a Cargo.toml file at root
+  - [x] create a bin folder
+  - [x] create a lib folder
+  - [ ] create necessary files
+- [x] Create a README.md file
+- [x] Create a .gitignore file
+- [x] Create a Cargo.toml file at root
 - [ ] crates
   - [ ] filter the crates available in the internet
   - [ ] add them to the `./lib/Cargo.toml`
