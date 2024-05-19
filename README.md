@@ -1,6 +1,6 @@
 <div align="center">
 <!-- make the headline bold and font-size biger -->
-    <h1 style="font-size: 50px; font-weight: bold; color: #954535">📚 Diwan</h1>
+    <h1 style="font-size: 50px; font-weight: bold;">📚 Diwan</h1>
 
 [![GitHub Release](https://img.shields.io/github/v/release/Abdogouhmad/Diwan)](https://github.com/Abdogouhmad/Diwan/releases/latest)
 [![GitHub contributors](https://img.shields.io/github/contributors/Abdogouhmad/Diwan)](https://github.com/Abdogouhmad/Diwan/graphs/contributors)
