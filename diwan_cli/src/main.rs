@@ -1,6 +1,3 @@
-// use anyhow::Context;
-// use std::fs::File;
-// use std::io::BufReader
 use clap::Parser;
 use diwan_core::core::Core;
 use std::{path::PathBuf, process::exit};
