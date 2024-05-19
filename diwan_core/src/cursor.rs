@@ -18,8 +18,8 @@ enum Actions {
 
 /// enum for mode
 enum Modes {
-    NORMAL,
-    INSERT,
+    Normal,
+    Insert,
 }
 
 pub struct Editor;
@@ -31,8 +31,8 @@ impl Editor {
         ev: event::Event,
     ) -> anyhow::Result<Option<Actions>> {
         match mode {
-            Modes::NORMAL => Editor::normal_mode(ev),
-            Modes::INSERT => Editor::insert_mode(stdout, ev),
+            Modes::Normal => Editor::normal_mode(ev),
+            Modes::Insert => Editor::insert_mode(stdout, ev),
         }
     }
     fn normal_mode(ev: event::Event) -> anyhow::Result<Option<Actions>> {
@@ -43,7 +43,7 @@ impl Editor {
                 event::KeyCode::Char('j') | event::KeyCode::Down => Ok(Some(Actions::Down)),
                 event::KeyCode::Char('k') | event::KeyCode::Up => Ok(Some(Actions::Up)),
                 event::KeyCode::Char('l') | event::KeyCode::Right => Ok(Some(Actions::Right)),
-                event::KeyCode::Char('i') => Ok(Some(Actions::EnterMode(Modes::INSERT))),
+                event::KeyCode::Char('i') => Ok(Some(Actions::EnterMode(Modes::Insert))),
                 _ => Ok(None),
             },
             _ => Ok(None),
@@ -52,7 +52,7 @@ impl Editor {
     fn insert_mode(stdout: &mut io::Stdout, ev: event::Event) -> anyhow::Result<Option<Actions>> {
         match ev {
             event::Event::Key(ev) => match ev.code {
-                event::KeyCode::Esc => Ok(Some(Actions::EnterMode(Modes::NORMAL))),
+                event::KeyCode::Esc => Ok(Some(Actions::EnterMode(Modes::Normal))),
                 event::KeyCode::Char(c) => {
                     stdout.queue(style::Print(c))?;
                     Ok(None)
@@ -66,7 +66,7 @@ impl Editor {
         // Cursor position (cx, cy)
         let mut cx = 0;
         let mut cy = 0;
-        let mut mode = Modes::NORMAL;
+        let mut mode = Modes::Normal;
         // Create a mutable stdout handle to manage terminal output
         let mut stdout = stdout();
         // Enable raw mode
