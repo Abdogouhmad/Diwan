@@ -2,7 +2,7 @@
 // use std::fs::File;
 // use std::io::BufReader
 use clap::Parser;
-use diwan_core::cursor::Editor;
+use diwan_core::core::Core;
 use std::{path::PathBuf, process::exit};
 
 /// diwan is a simple Rust text editor
@@ -17,29 +17,19 @@ struct Args {
 fn main() -> anyhow::Result<()> {
     // Parse the arguments
     let args = Args::parse();
+    let editor = Core;
 
     // If a file path is provided, open the editor with that file
     if let Some(path) = args.file {
-        // Open the file
-        // let file = File::open(&path).context("failed to open file")?;
-        // let _ = BufReader::new(file);
-
         // TODO: open editor with the file
         println!("{}", path.display());
     } else {
-        // TODO: run editor without any file
-        let logs = Editor.run();
+        let logs = editor.run();
         if logs.is_err() {
             eprintln!("can't open the Editor");
             exit(1);
         }
     }
-
-    // init editor
-    //let mut editor = diwan::Editor::new();
-
-    // run editor
-    //editor.run();
 
     Ok(())
 }
