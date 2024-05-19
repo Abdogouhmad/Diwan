@@ -17,14 +17,15 @@ cultural significance in the Arab and Islamic world. In its literary context, a 
 
 # Tasks
 
-- [ ] Step the folder structure
+- [x] Step the folder structure
   - [x] create a bin folder
   - [x] create a lib folder
-  - [ ] create necessary files
+  - [x] create necessary files
 - [x] Create a README.md file
 - [x] Create a .gitignore file
 - [x] Create a Cargo.toml file at root
 - [ ] crates
   - [ ] filter the crates available in the internet
   - [ ] add them to the `./lib/Cargo.toml`
+- [x] CLI has two functions to open the file and to run editor if file not provided
 - [ ] create the base of the project.

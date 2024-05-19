@@ -1,7 +1,8 @@
 // use anyhow::Context;
 // use std::fs::File;
-// use std::io::BufReader;
+// use std::io::BufReader
 use clap::Parser;
+use diwan_core::cursor::Editor;
 use std::path::PathBuf;
 
 /// diwan is a simple Rust text editor
@@ -27,7 +28,7 @@ fn main() -> anyhow::Result<()> {
         println!("{}", path.display());
     } else {
         // TODO: run editor without any file
-        println!("run editor");
+        Editor.run();
     }
 
     // init editor

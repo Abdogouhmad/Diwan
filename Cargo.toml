@@ -1,5 +1,5 @@
 [workspace]
-members = ["diwan-cli", "diwan-lib", "diwan-core"]
+members = ["diwan_cli", "diwan_lib", "diwan_core"]
 resolver = "2"
 
 [profile.dev]

@@ -1,5 +1,5 @@
 [package]
-name = "diwan-cli"
+name = "diwan"
 description.workspace = true
 version.workspace = true
 edition.workspace = true
@@ -8,5 +8,6 @@ readme.workspace = true
 repository.workspace = true
 
 [dependencies]
+diwan_core = {path = "../diwan_core"}
 anyhow = "1.0.86"
 clap = { version = "4.5.1", features = ["derive", "cargo"] }
