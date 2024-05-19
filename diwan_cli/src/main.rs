@@ -3,7 +3,7 @@
 // use std::io::BufReader
 use clap::Parser;
 use diwan_core::cursor::Editor;
-use std::path::PathBuf;
+use std::{path::PathBuf, process::exit};
 
 /// diwan is a simple Rust text editor
 #[derive(Parser, Debug)]
@@ -28,7 +28,11 @@ fn main() -> anyhow::Result<()> {
         println!("{}", path.display());
     } else {
         // TODO: run editor without any file
-        Editor.run();
+        let logs = Editor.run();
+        if logs.is_err() {
+            eprintln!("can't open the Editor");
+            exit(1);
+        }
     }
 
     // init editor
