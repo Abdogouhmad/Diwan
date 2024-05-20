@@ -1,5 +1,6 @@
+use anyhow::Context;
 use clap::Parser;
-use diwan_core::core::Core;
+use diwan_core::editor::Editor;
 use std::{path::PathBuf, process::exit};
 
 /// diwan is a simple Rust text editor
@@ -14,18 +15,17 @@ struct Args {
 fn main() -> anyhow::Result<()> {
     // Parse the arguments
     let args = Args::parse();
-    let editor = Core;
+
+    // Create a new editor instance
+    let mut editor = Editor::new()?;
 
     // If a file path is provided, open the editor with that file
     if let Some(path) = args.file {
         // TODO: open editor with the file
         println!("{}", path.display());
     } else {
-        let logs = editor.run();
-        if logs.is_err() {
-            eprintln!("can't open the Editor");
-            exit(1);
-        }
+        editor.run().context("Failed to load Diwan editor")?;
+        exit(1);
     }
 
     Ok(())
