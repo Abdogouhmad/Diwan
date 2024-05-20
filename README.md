@@ -36,20 +36,20 @@ cultural significance in the Arab and Islamic world. In its literary context, a 
 - [x] Create a `README.md` file
 - [x] Create a `.gitignore` file
 - [x] Create a `Cargo.toml` file at root
-- [ ] Crates
-  - [ ] Filter the crates available on the internet
-  - [ ] Add them to the `diwan_core/Cargo.toml`
+- [x] Crates
+  - [x] Filter the crates available on the internet
+  - [x] Add them to the `diwan_core/Cargo.toml`
     - [x] `crossterm`
     - [x] `anyhow`
 - [x] CLI has two functions to open the file and to run the editor if the file is not provided
 - [ ] Create the base of the project
   - [ ] Implement `Buffer` struct in `buffer.rs`
     - [ ] Methods for inserting and deleting characters
-  - [ ] Implement `Cursor` struct in `cursor.rs`
-    - [] Methods for moving the cursor
+  - [x] Implement `Cursor` struct in `cursor.rs`
+    - [x] Methods for moving the cursor
   - [ ] Implement main logic in `editor.rs`
     - [ ] Integrate buffer and cursor
-    - [ ] Define modes and handle input
+    - [x] Define modes and handle input
   - [ ] Implement file I/O in `file_io.rs`
     - [ ] Functions for loading and saving text files
   - [ ] Implement input handling in `input.rs`

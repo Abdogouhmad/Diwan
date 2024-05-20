@@ -22,6 +22,10 @@ impl Drop for Editor {
         _ = self.stdout.flush();
         _ = self.stdout.execute(terminal::LeaveAlternateScreen);
         _ = terminal::disable_raw_mode();
+        _ = self
+            .stdout
+            .execute(terminal::Clear(terminal::ClearType::All))
+            .context("Failed to clear screen");
     }
 }
 
@@ -60,36 +64,23 @@ impl Editor {
     /// status line
     pub fn draw_statusline(&mut self) -> anyhow::Result<()> {
         let file = " src/main.rs";
-        let pos = format!(" {}:{} ", self.cx, self.cy);
+        let pos = format!(" {}:{} ", self.cy, self.cx);
         let status_line = format!(" {:?} ", self.mode).to_uppercase();
         let file_width = self.size.0 - status_line.len() as u16 - pos.len() as u16 - 2;
 
         self.stdout.queue(cursor::MoveTo(0, self.size.1 - 2))?;
-        let on_normal = status_line
-            .clone()
+        // style the mode
+        let styled_mode = status_line
             .with(style::Color::Rgb { r: 0, g: 0, b: 0 })
             .on(style::Color::Rgb {
-                r: 251,
-                g: 187,
-                b: 118,
-            });
-        let on_insert = status_line
-            .clone()
-            .with(style::Color::Rgb { r: 0, g: 0, b: 0 })
-            .on(style::Color::Rgb {
-                r: 248,
-                g: 148,
-                b: 63,
-            });
-        // the mode
-        match self.mode {
-            Modes::Normal => {
-                self.stdout.queue(style::PrintStyledContent(on_normal))?;
-            }
-            Modes::Insert => {
-                self.stdout.queue(style::PrintStyledContent(on_insert))?;
-            }
-        }
+                r: 38,
+                g: 139,
+                b: 210,
+            })
+            .bold()
+            .white();
+        // queue the mode in the status bar
+        self.stdout.queue(style::PrintStyledContent(styled_mode))?;
         // the file edited
         self.stdout.queue(style::PrintStyledContent(
             format!("{:<width$}", file, width = file_width as usize)
@@ -98,21 +89,24 @@ impl Editor {
                     g: 255,
                     b: 255,
                 })
-                .bold()
                 .on(style::Color::Rgb {
-                    r: 67,
-                    g: 70,
-                    b: 89,
-                }),
+                    r: 203,
+                    g: 75,
+                    b: 22,
+                })
+                .white()
+                .bold(),
         ))?;
         // position
+        // rgb(2, 128, 144)
         _ = self.stdout.queue(style::PrintStyledContent(
             pos.with(style::Color::Rgb { r: 0, g: 0, b: 0 })
                 .bold()
+                .white()
                 .on(style::Color::Rgb {
-                    r: 184,
-                    g: 144,
-                    b: 243,
+                    r: 133,
+                    g: 87,
+                    b: 35,
                 }),
         ));
         Ok(())
