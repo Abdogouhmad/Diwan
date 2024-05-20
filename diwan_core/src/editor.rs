@@ -16,19 +16,14 @@ pub struct Editor {
     cy: u16,
     pub mode: Modes,
 }
-
 impl Drop for Editor {
     fn drop(&mut self) {
-        _ = self.stdout.flush();
+        // Restore the terminal state
         _ = self.stdout.execute(terminal::LeaveAlternateScreen);
         _ = terminal::disable_raw_mode();
-        _ = self
-            .stdout
-            .execute(terminal::Clear(terminal::ClearType::All))
-            .context("Failed to clear screen");
+        _ = self.stdout.flush();
     }
 }
-
 impl Editor {
     /// function that return the editor instance
     pub fn new() -> anyhow::Result<Self> {
@@ -149,6 +144,7 @@ impl Editor {
             }
         }
         // Leave the alternate screen and disable raw mode
+
         Ok(())
     }
 }
