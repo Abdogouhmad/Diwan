@@ -41,7 +41,7 @@ impl Cursor {
     /// # Returns
     ///
     /// * `Result<Option<Actions>>` - The result containing an optional action.
-    pub fn mode_switcher(ev: event::Event) -> anyhow::Result<Option<Actions>> {
+    pub fn mode_switcher(_ev: event::Event) -> anyhow::Result<Option<Actions>> {
         // match Modes {
         //     Modes::Normal => Cursor::normal_md(ev),
         //     Modes::Insert => Cursor::insert_md(ev),
