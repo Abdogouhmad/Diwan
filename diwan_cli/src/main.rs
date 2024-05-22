@@ -1,28 +1,44 @@
 use anyhow::Context;
+use diwan_core::buffer::Buffer;
 use diwan_core::editor::Editor;
 use std::env;
-use std::path::PathBuf;
 
 fn main() -> anyhow::Result<()> {
     // Get the command-line arguments
     let args: Vec<String> = env::args().collect();
 
-    // If there is at least one argument after the program name
-    if args.len() > 1 {
-        // Assume the first argument after the program name is the file path
-        let file_path = PathBuf::from(&args[1]);
-        println!("Opening file: {}", file_path.display());
-        // Handle the file path here
-    } else {
-        // Create a new editor instance
-        let mut editor = Editor::new().context("Failed to create instance of editor")?;
+    // Match on the command-line arguments to handle different cases
+    match args.get(1).map(String::as_str) {
+        Some("-h") | Some("--help") => {
+            print_help();
+            Ok(())
+        }
+        _ => {
+            // Determine if a file path was provided
+            let file_path = args.get(1).cloned();
 
-        // Run the editor
-        editor.run().context("Failed to load Diwan editor")?;
+            // Create the buffer and editor
+            let buffer = Buffer::from_file(file_path);
+            let mut editor = Editor::new(buffer).context("Failed to create instance of editor")?;
 
-        // Drop the editor to restore terminal state
-        drop(editor);
+            // Run the editor
+            editor.run().context("Failed to load Diwan editor")?;
+
+            // Drop the editor to restore terminal state
+            drop(editor);
+            Ok(())
+        }
     }
+}
 
-    Ok(())
+fn print_help() {
+    println!("Diwan Editor Help");
+    println!("Usage: diwan [OPTIONS] [FILE]");
+    println!();
+    println!("Arguments:");
+    println!("  FILE             The file to open in the editor");
+    println!();
+    println!("Options:");
+    println!("  -h, --help       Print this help message");
+    println!();
 }

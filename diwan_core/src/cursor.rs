@@ -1,3 +1,4 @@
+use anyhow::Ok;
 use crossterm::{event, terminal};
 
 use crate::editor::Editor;
@@ -25,9 +26,12 @@ pub struct Cursor;
 
 impl Cursor {
     pub fn handle_modes(edt: &mut Editor, ev: event::Event) -> anyhow::Result<Option<Actions>> {
-        // make it flixable to resized window
         if matches!(ev, event::Event::Resize(_, _)) {
             edt.size = terminal::size()?;
+            if let event::Event::Resize(width, height) = ev {
+                edt.size = (width, height);
+                return Ok(None);
+            }
         }
         match edt.mode {
             Modes::Normal => Cursor::normal_mode(ev),
