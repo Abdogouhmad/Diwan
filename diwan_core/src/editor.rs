@@ -59,7 +59,7 @@ impl Editor {
     /// status line
     pub fn draw_statusline(&mut self) -> anyhow::Result<()> {
         let file = " src/main.rs";
-        let pos = format!(" {}:{} ", self.cy, self.cx);
+        let pos = format!(" {}:{} ", self.cy + 1, self.cx + 1);
         let status_line = format!(" {:?} ", self.mode).to_uppercase();
         let file_width = self.size.0 - status_line.len() as u16 - pos.len() as u16 - 2;
 
