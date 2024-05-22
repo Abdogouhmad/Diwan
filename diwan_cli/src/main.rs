@@ -1,44 +1,50 @@
 use anyhow::Context;
-use diwan_core::buffer::Buffer;
-use diwan_core::editor::Editor;
-use std::env;
+use crossterm::{
+    event::{read, Event, KeyCode, KeyEvent},
+    style::Print,
+    terminal, ExecutableCommand, QueueableCommand,
+};
+use std::io::{self, Write};
 
 fn main() -> anyhow::Result<()> {
-    // Get the command-line arguments
-    let args: Vec<String> = env::args().collect();
+    let mut stdout = io::stdout();
 
-    // Match on the command-line arguments to handle different cases
-    match args.get(1).map(String::as_str) {
-        Some("-h") | Some("--help") => {
-            print_help();
-            Ok(())
-        }
-        _ => {
-            // Determine if a file path was provided
-            let file_path = args.get(1).cloned();
+    // Enable raw mode to capture input directly without buffering.
+    terminal::enable_raw_mode().context("can't enable raw mode")?;
 
-            // Create the buffer and editor
-            let buffer = Buffer::from_file(file_path);
-            let mut editor = Editor::new(buffer).context("Failed to create instance of editor")?;
+    // Enter the alternate screen.
+    stdout
+        .queue(terminal::EnterAlternateScreen)
+        .context("can't enter the alternate screen")?
+        .queue(terminal::Clear(terminal::ClearType::All))
+        .context("can't clear the screen")?
+        .flush()
+        .context("can't flush stdout")?;
 
-            // Run the editor
-            editor.run().context("Failed to load Diwan editor")?;
-
-            // Drop the editor to restore terminal state
-            drop(editor);
-            Ok(())
+    // Run the terminal event loop.
+    loop {
+        // Read the next event.
+        match read().context("failed to read event")? {
+            Event::Key(KeyEvent { code, .. }) => match code {
+                KeyCode::Char(c) => {
+                    if c == 'q' {
+                        break;
+                    }
+                    // Handle other character key presses here
+                    stdout.queue(Print(c))?;
+                    stdout.flush()?;
+                }
+                _ => {}
+            },
+            _ => {}
         }
     }
-}
 
-fn print_help() {
-    println!("Diwan is a minimal rust text editor like vim :)");
-    println!("Usage: diwan [OPTIONS] [FILE]");
-    println!();
-    println!("Arguments:");
-    println!("  FILE             The file to open in the editor");
-    println!();
-    println!("Options:");
-    println!("  -h, --help       Print this help message");
-    println!();
+    // Leave the alternate screen and disable raw mode.
+    stdout
+        .execute(terminal::LeaveAlternateScreen)
+        .context("can't leave the alternate screen")?;
+    terminal::disable_raw_mode().context("can't disable raw mode")?;
+    stdout.flush().context("can't flush stdout")?;
+    Ok(())
 }
