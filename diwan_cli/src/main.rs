@@ -32,7 +32,7 @@ fn main() -> anyhow::Result<()> {
 }
 
 fn print_help() {
-    println!("Diwan Editor Help");
+    println!("Diwan is a minimal rust text editor like vim :)");
     println!("Usage: diwan [OPTIONS] [FILE]");
     println!();
     println!("Arguments:");
